@@ -19,6 +19,8 @@ Project was created with:
 * express: 4.18.1
 * nodemon: 2.0.16
 * dotenv: 16.0.1
+* swagger-ui-express: 4.4.0
+* swagger-jsdoc: 6.2.1
 * [Nomic APIs](https://nomics.com/docs/#operation/getCurrencies)
 
 
