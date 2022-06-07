@@ -1,6 +1,8 @@
 const express = require('express')
 const axios = require('axios')
 
+require('dotenv').config()
+
 const app = express();
 const PORT = process.env.PORT || 3000
 
@@ -9,7 +11,7 @@ app.use(express.json({ extendedUrl: true }))
 
 const getRate = async (coin) => {
     const { data } = await axios.get(
-        `https://api.nomics.com/v1/currencies/ticker?key=6f8bc43bb5a8f29096a7f868b6baaf2d9248d2ea&ids=${coin}`
+        `https://api.nomics.com/v1/currencies/ticker?key=${process.env.API_KEY}&ids=${coin}`
     )
 
     return data[0].price;
@@ -25,6 +27,7 @@ const calculateExchange = async (base, compare, amount) => {
 
 
 const convert = async (req, res) => {
+    console.log(req.body)
     const amount = req.body.amount;
     const baseCoin = req.body.baseCoin;
     const compareCoin = req.body.compareCoin;
@@ -45,6 +48,12 @@ const convert = async (req, res) => {
 
 
 app.post("/", convert);
+
+//swagger api docs
+
+const { swaggerJsdoc, swaggerUi } = require('./swagger')
+const swaggerJson = require("./swagger-docs.json");
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerJson, { explorer: true }));
 
 
 app.listen(PORT, () => console.log("App Has Started.... !"));

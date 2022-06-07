@@ -1,0 +1,88 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Crypto Pair Comparison APIs docs",
+        "version": "1.0.0",
+        "title": "Crypto-pai-comparison APIS",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Crypto-pai-comparison",
+            "email": "valendabagire@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        },
+        {
+            "url": "https://cryptopaircompare-dabagire.herokuapp.com"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Pairs",
+            "description": "Crypto Pairs"
+        }
+    ],
+    "paths": {
+        "/": {
+            "post": {
+                "tags": [
+                    "Pairs"
+                ],
+                "summary": "Exchange Rates",
+                "description": "Get the exchange rates between two currencies in pair",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "amount": {
+                                "type": "string",
+                                "example": "1"
+                            },
+                            "baseCoin": {
+                                "type": "string",
+                                "example": "ETH"
+                            },
+                            "compareCoin": {
+                                "type": "string",
+                                "example": "BTC"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Exchange rate was found  successfully."
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
