@@ -3,6 +3,8 @@ const axios = require('axios')
 
 require('dotenv').config()
 
+console.log(process.env.API_KEY)
+
 const app = express();
 const PORT = process.env.PORT || 3000
 
