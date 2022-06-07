@@ -3,8 +3,6 @@ const axios = require('axios')
 
 require('dotenv').config()
 
-console.log(process.env.API_KEY)
-
 const app = express();
 const PORT = process.env.PORT || 3000
 
@@ -12,11 +10,15 @@ app.use(express.json({ extendedUrl: true }))
 
 
 const getRate = async (coin) => {
-    const { data } = await axios.get(
-        `https://api.nomics.com/v1/currencies/ticker?key=${process.env.API_KEY}&ids=${coin}`
-    )
+   try {
+       const { data } = await axios.get(
+           `https://api.nomics.com/v1/currencies/ticker?key=${process.env.API_KEY}&ids=${coin}`
+       )
 
-    return data[0].price;
+       return data[0].price;
+   } catch (error) {
+       console.log(error)
+   }
 }
 
 
@@ -29,7 +31,7 @@ const calculateExchange = async (base, compare, amount) => {
 
 
 const convert = async (req, res) => {
-    console.log(req.body)
+    
     const amount = req.body.amount;
     const baseCoin = req.body.baseCoin;
     const compareCoin = req.body.compareCoin;
